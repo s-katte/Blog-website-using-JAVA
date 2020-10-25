@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <!-- BootStrap CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js" integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="row h-100 mx-0">
+        <div class="col-md-4 py-5 py-md-0 bg-custom-gradient d-flex flex-column justify-content-around align-items-center text-white text-center">
+            <div class="logo img-container w-50">
+                <img src="../assets/logo.png" alt="">
+            </div>
+            <h1 class="font-weight-bold">
+                Hello, Blogger
+            </h1>
+            <div class="divider bg-white" style="width: 8rem"></div>
+            <h5>
+                Fill up the details and start <br> your journey with us
+            </h5>
+            <h6>
+                - OR -
+            </h6>
+            <div class="btn btn-custom btn-hover btn-lg btn-custom-rounded font-weight-bold text-white">
+                Log In
+            </div>
+        </div>
+        <div class="col d-flex flex-column justify-content-around align-items-center text-custom text-center">
+            <h1 class="font-weight-bold">
+                Register your account
+            </h1>
+            <div class="divider bg-custom-solid" style="width: 8rem;"></div>
+            <div class="social-login d-flex justify-content-around align-items-center w-50">
+                <div class="facebook">Fb</div>
+                <div class="linkedin">Li</div>
+                <div class="google">G</div>
+            </div>
+            <h6 class="text-muted">or use your email account</h6>
+            <form id="signupForm" action="" class="w-50 text-left">
+                <div class="mb-1">
+                    <label for="fullname" class="form-label font-weight-bold text-dark">Full Name</label>
+                    <input type="text" class="form-control" id="fullname" placeholder="John Doe">
+                </div>
+                <div class="mb-1">
+                    <label for="username" class="form-label font-weight-bold text-dark">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="johndoe123">
+                </div>
+                <div class="mb-1">
+                    <label for="email" class="form-label font-weight-bold text-dark">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="johndoe@example.com">
+                </div>
+                <div class="mb-1">
+                    <label for="password" class="form-label font-weight-bold text-dark">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="******">
+                </div>
+            </form>
+            <button type="submit" form="signupForm" class="btn btn-custom btn-custom-rounded font-weight-bold bg-custom-gradient text-white">
+                Sign Up
+            </button>
+        </div>
+    </div>
+</body>
+</html>
