@@ -74,3 +74,11 @@ input.form-control{
         cursor: grabbing;
     }
 }
+
+.topic-container div{
+    cursor: pointer;
+    transition: 0.1s;
+    &:hover{
+        transform: scale(1.05);
+    }
+}
