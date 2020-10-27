@@ -56,8 +56,16 @@ html, body{
     background-color: rgba(34, 0, 255, 0.116);
 }
 
-input.form-control{
+input.form-control, textarea.form-control, label.form-file-label{
     border: 2px solid blue;
+}
+label.form-file-label {
+    span{
+        border: none;
+        &.form-file-button{
+            background-color: rgba(34, 0, 255, 0.116);
+        }
+    }
 }
 
 .text-justify{
