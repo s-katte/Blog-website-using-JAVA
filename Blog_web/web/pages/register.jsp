@@ -16,7 +16,7 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="./css/main.css">
-        <title>Blog|Register</title>
+        <title>Blog | Register</title>
     </head>
     <body>
         <div class="row h-100 mx-0">
@@ -49,22 +49,26 @@
                 <div class="google">G</div>
             </div>
             <h6 class="text-muted">or use your email account</h6>
-            <form id="signupForm" action="" class="w-50 text-left">
+            <form id="signupForm" action="./../db/registerUser.jsp" method="POST" class="w-50 text-left">
                 <div class="mb-1">
-                    <label for="fullname" class="form-label font-weight-bold text-dark">Full Name</label>
-                    <input type="text" class="form-control" id="fullname" placeholder="John Doe">
+                    <label for="fullname" class="form-label font-weight-bold text-dark">First Name</label>
+                    <input type="text" required="" class="form-control" id="first_name" name="first_name" placeholder="John">
+                </div>
+                <div class="mb-1">
+                    <label for="fullname" class="form-label font-weight-bold text-dark">Last Name</label>
+                    <input type="text" required="" class="form-control" id="last_name" name="last_name" placeholder="Doe">
                 </div>
                 <div class="mb-1">
                     <label for="username" class="form-label font-weight-bold text-dark">Username</label>
-                    <input type="text" class="form-control" id="username" placeholder="johndoe123">
+                    <input type="text" required="" class="form-control" id="user_name" name="user_name" placeholder="johndoe123">
                 </div>
                 <div class="mb-1">
                     <label for="email" class="form-label font-weight-bold text-dark">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="johndoe@example.com">
+                    <input type="email" required="" class="form-control" id="email" name="email" placeholder="johndoe@example.com">
                 </div>
                 <div class="mb-1">
                     <label for="password" class="form-label font-weight-bold text-dark">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="******">
+                    <input type="password" required="" class="form-control" id="password" name="password" placeholder="******">
                 </div>
             </form>
             <button type="submit" form="signupForm" class="btn btn-custom btn-custom-rounded font-weight-bold bg-custom-gradient text-white">
