@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 28, 2020 at 08:22 AM
+-- Generation Time: Oct 29, 2020 at 05:25 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -48,6 +48,19 @@ CREATE TABLE `topic` (
   `name` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `topic`
+--
+
+INSERT INTO `topic` (`name`) VALUES
+('Entertainmnt'),
+('Environment'),
+('Language'),
+('Literature'),
+('Science'),
+('Space'),
+('Technology');
+
 -- --------------------------------------------------------
 
 --
@@ -68,7 +81,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_name`, `email`, `password`, `created_at`, `first_name`, `last_name`) VALUES
-('s-katte', 'stk@blog.com', '111111', '2020-10-20', 'shubham', 'katte');
+('johndoe', 'shubhamkatte99@gmail.com', '123456', '2020-10-29', 'Shubham', 'Katte');
 
 --
 -- Indexes for dumped tables
