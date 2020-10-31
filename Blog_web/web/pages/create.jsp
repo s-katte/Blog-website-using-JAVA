@@ -1,6 +1,6 @@
 <%-- 
-    Document   : create
-    Created on : 27 Oct, 2020, 9:28:04 PM
+    Document   : uploadT
+    Created on : 30 Oct, 2020, 8:47:07 AM
     Author     : root
 --%>
 
@@ -11,26 +11,31 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Blog | Create</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create</title>
+
     <!-- BootStrap CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js" integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD" crossorigin="anonymous"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="   ./css/main.css">
 
     <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 
 </head>
 <body>
+
+
     <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/Blog" user="root" password="" />
     <sql:query dataSource="${snapshot}" var="results">
         SELECT * FROM topic
     </sql:query>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom-gradient shadow-sm">
         <div class="container container-fluid">
             <a class="navbar-brand img-container logo py-0" href="#">
@@ -57,33 +62,32 @@
         </div>
     </nav>
     <div class="container py-5">
-        <form id="createForm" action="./../db/createBlog.jsp" class="w-100 text-left">
+        <form method="POST" id="createForm" enctype="application/x-www-form-urlencoded" action="./../db/createBlog.jsp" class="w-100 text-left">
             <div class="mb-4">
                 <h5><label for="Title" class="form-label font-weight-bold text-dark">Title</label></h5>
-                <input type="text" class="form-control" name="title" id="title" placeholder="Enter blog title here">
+                <input value="" name="title" type="text" class="form-control" id="title" placeholder="Enter blog title here">
             </div>
             <div class="mb-4">
                 <h5><label for="content" class="form-label font-weight-bold text-dark">Content</label></h5>
-                <textarea type="text" name="content" class="form-control" rows="10" id="content" placeholder="Enter blog content here"></textarea>
+                <textarea name="content" type="text" class="form-control" rows="10" id="content" placeholder="Enter blog content here"></textarea>
             </div>
             <div class="form-file">
-                <input type="file" class="form-file-input" id="customFile">
+                <input type="file" name="file" class="form-file-input" id="customFile">
                 <label class="form-file-label" for="customFile">
                     <span class="form-file-text">Choose file...</span>
                     <span class="form-file-button">Browse</span>
                 </label>
             </div>
             <div class="mb-4">
-                <h5><label for="content" class="form-label font-weight-bold text-dark">Topic</label></h5>
-                <select required class="form-control">
-                    <option disabled selected style="display: none;">Select Topic</option>
+                <select name="topic" id="">
+                    <option selected disabled style="display: none;">Select Topic</option>
                     <c:forEach var="row" items="${results.rows}" varStatus="loop">
                         <option value="${row.name}">${row.name}</option>
                     </c:forEach>
                 </select>
             </div>
             <div class="mt-3">
-                <button class="btn bg-custom-gradient">Upload</button>
+                <button type="submit" form="createForm" class="btn bg-custom-gradient">Upload</button>
             </div>
         </form>
     </div>
@@ -92,7 +96,7 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
                 <div class="col">
                     <div class="img-container">
-                        <img src="./assets/logo.png" alt="" class="logo" style="width: 8rem;">
+                        <img src="../assets/logo.png" alt="" class="logo" style="width: 8rem;">
                     </div>
                     <h2 class="font-weight-bold my-3">
                         Write what you love
