@@ -6,44 +6,48 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.*;
 
 @WebServlet(urlPatterns = {"/registerUser"})
 public class registerUser extends HttpServlet {
 
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet registerUser</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet registerUser at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
-        out.println(request.getParameter("username"));
+        out.println("<!DOCTYPE html>\n" +
+                    "<html>\n" +
+                    "    <head>\n" +
+                    "        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">"+
+                    "        <title>"+ request.getParameter("user_name") + "</title>"
+                +   "   </head>"
+                +   "<body>");
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            // load driver
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Blog",
+            "root", "");         // establish connection
+            String user_name = request.getParameter("user_name");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            String first_name = request.getParameter("first_name");
+            String last_name = request.getParameter("last_name");
+
+            PreparedStatement ps = con.prepareStatement("insert into user(user_name, email, password, first_name, last_name) values ('"+user_name+"', '"+email+"', '"+password+"', '"+first_name+"', '"+last_name+"')");
+            ps.executeUpdate();
+            System.out.println("INSERTED");
+            response.sendRedirect("pages/login.jsp");    
+
+            
+        }catch (Exception e){
+            e.printStackTrace();
+            e.getMessage();
+            response.sendRedirect("pages/register.jsp");    
+
+        }
+        
     }
 
 
