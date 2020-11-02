@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 29, 2020 at 05:25 AM
+-- Generation Time: Nov 02, 2020 at 04:31 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -32,7 +32,7 @@ CREATE TABLE `blog` (
   `created_by` varchar(15) NOT NULL,
   `thumbnail` varchar(200) NOT NULL,
   `content` text NOT NULL,
-  `created_at` date NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `title` text NOT NULL,
   `visibility` int(11) NOT NULL DEFAULT 0,
   `topic` varchar(15) NOT NULL
@@ -71,17 +71,10 @@ CREATE TABLE `user` (
   `user_name` varchar(15) NOT NULL,
   `email` varchar(25) NOT NULL,
   `password` text NOT NULL,
-  `created_at` date NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `first_name` varchar(10) NOT NULL,
   `last_name` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`user_name`, `email`, `password`, `created_at`, `first_name`, `last_name`) VALUES
-('johndoe', 'shubhamkatte99@gmail.com', '123456', '2020-10-29', 'Shubham', 'Katte');
 
 --
 -- Indexes for dumped tables

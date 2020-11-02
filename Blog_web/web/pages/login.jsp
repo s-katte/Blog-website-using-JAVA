@@ -31,14 +31,14 @@
                 <div class="google">G</div>
             </div>
             <h6 class="text-muted">or use your email account</h6>
-            <form id="loginForm" action="" class="w-50 text-left">
+            <form id="loginForm" action="./../db/loginUser.jsp" method="POST" class="w-50 text-left">
                 <div class="mb-1">
-                    <label for="username" class="form-label font-weight-bold text-dark">Username</label>
-                    <input type="text" class="form-control" id="username" placeholder="johndoe123">
+                    <label for="user_name" class="form-label font-weight-bold text-dark">Username</label>
+                    <input name="user_name" type="text" class="form-control" id="username" placeholder="johndoe123">
                 </div>
                 <div class="mb-1">
                     <label for="password" class="form-label font-weight-bold text-dark">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="******">
+                    <input name="password" type="password" class="form-control" id="password" placeholder="******">
                 </div>
             </form>
             <button type="submit" form="loginForm" class="btn btn-custom btn-custom-rounded font-weight-bold bg-custom-gradient text-white">

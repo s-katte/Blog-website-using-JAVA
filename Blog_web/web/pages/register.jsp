@@ -49,7 +49,7 @@
                 <div class="google">G</div>
             </div>
             <h6 class="text-muted">or use your email account</h6>
-            <form id="signupForm" action="./../db/registerUser.jsp" method="POST" class="w-50 text-left">
+            <form id="signupForm" action="/registerUser" method="POST" class="w-50 text-left">
                 <div class="mb-1">
                     <label for="fullname" class="form-label font-weight-bold text-dark">First Name</label>
                     <input type="text" required="" class="form-control" id="first_name" name="first_name" placeholder="John">
