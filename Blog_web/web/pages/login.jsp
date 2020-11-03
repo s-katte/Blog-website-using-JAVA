@@ -31,7 +31,7 @@
                 <div class="google">G</div>
             </div>
             <h6 class="text-muted">or use your email account</h6>
-            <form id="loginForm" action="./../db/loginUser.jsp" method="POST" class="w-50 text-left">
+            <form id="loginForm" action="../loginUser" method="POST" class="w-50 text-left">
                 <div class="mb-1">
                     <label for="user_name" class="form-label font-weight-bold text-dark">Username</label>
                     <input name="user_name" type="text" class="form-control" id="username" placeholder="johndoe123">
