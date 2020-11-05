@@ -16,11 +16,12 @@
                 </library>
                 <library dirs="200">
                     <file>${file.reference.commons-fileupload-1.3.jar-1}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
                     <file>${file.reference.commons-io-1.3.jar-1}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.cos-2020.4.jar}</file>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>

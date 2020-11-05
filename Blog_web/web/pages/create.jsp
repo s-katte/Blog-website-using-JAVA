@@ -62,7 +62,7 @@
         </div>
     </nav>
     <div class="container py-5">
-        <form method="POST" id="createForm" enctype="application/x-www-form-urlencoded" action="./../db/createBlog.jsp" class="w-100 text-left">
+        <form method="POST" id="createForm" enctype="multipart/form-data" action="../createBlog" class="w-100 text-left">
             <div class="mb-4">
                 <h5><label for="Title" class="form-label font-weight-bold text-dark">Title</label></h5>
                 <input value="" name="title" type="text" class="form-control" id="title" placeholder="Enter blog title here">
