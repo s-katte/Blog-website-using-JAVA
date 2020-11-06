@@ -39,7 +39,7 @@ public class registerUser extends HttpServlet {
             ps.executeUpdate();
             System.out.println("INSERTED");
             response.sendRedirect("pages/login.jsp");    
-
+            
             
         }catch (Exception e){
             e.printStackTrace();
