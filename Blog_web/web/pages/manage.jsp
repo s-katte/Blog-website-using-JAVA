@@ -88,9 +88,10 @@
                 </tr>
             </thead>
             <tbody>
+                <% Integer c = 1; %>
                 <c:forEach var="row" items="${results.rows}" varStatus="loop">                    
                     <tr class="">
-                        <td>1</td>
+                        <td><%=c %></td>
                         <td>${row.created_at}</td>
                         <td>${row.title}</td>
                         <td class="d-flex flex-row justify-content-between manage-links">
@@ -109,9 +110,13 @@
                                     <button type="submit" id="publish" class="font-weight-bold text-success border-0"><i class="fas fa-upload"></i>&emsp;Publish</button>
                                 </form>
                             </c:if>
-                            <div class="font-weight-bold text-danger"><i class="fas fa-trash-alt"></i>&emsp;Delete</div>
+                            <form method="POST" action="../deleteBlog">
+                                <input type="hidden" value="${row.blog_id}" name="id" />
+                                <button class="font-weight-bold text-danger border-0"><i class="fas fa-trash-alt"></i>&emsp;Delete</button>
+                            </form>
                         </td>
                     </tr>
+                    <% c = c + 1; %>
                 </c:forEach>
             </tbody>
         </table>
