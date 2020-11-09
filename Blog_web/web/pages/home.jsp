@@ -5,11 +5,16 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@page import="java.io.*, java.util.*, java.sql.*" %>
+<%@page import="javax.servlet.http.*, javax.servlet.*" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Blog|Home</title>
+        <title>Blog | Home</title>
     <!-- BootStrap CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js" integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD" crossorigin="anonymous"></script>
@@ -44,6 +49,10 @@
 
 </head>
 <body>
+    <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/Blog" user="root" password="" />
+    <sql:query dataSource="${snapshot}" var="topics">
+        SELECT * FROM topic
+    </sql:query>
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom-gradient shadow-sm">
         <div class="container container-fluid">
             <a class="navbar-brand img-container logo py-0" href="#">
@@ -244,12 +253,10 @@
                     </div>
                 </form>
                 <div class="bg-custom-light p-3 mt-3 rounded topic-container">
-                    <div class="bg-light rounded p-2 text-dark font-weight-bold">Topic 1</div>
-                    <div class="bg-light rounded p-2 text-dark font-weight-bold mt-3">Topic 1</div>
-                    <div class="bg-light rounded p-2 text-dark font-weight-bold mt-3">Topic 1</div>
-                    <div class="bg-light rounded p-2 text-dark font-weight-bold mt-3">Topic 1</div>
-                    <div class="bg-light rounded p-2 text-dark font-weight-bold mt-3">Topic 1</div>
-                    <div class="bg-light rounded p-2 text-dark font-weight-bold mt-3">Topic 1</div>
+                    <!--<div class="bg-light rounded p-2 text-dark font-weight-bold">Topic 1</div>-->
+                    <c:forEach var="row" items="${topics.rows}" varStatus="loop">
+                        <div class="bg-light rounded p-2 text-dark font-weight-bold mt-3">${row.name}</div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
