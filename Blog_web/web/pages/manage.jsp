@@ -95,7 +95,10 @@
                         <td>${row.created_at}</td>
                         <td>${row.title}</td>
                         <td class="d-flex flex-row justify-content-between manage-links">
-                            <div class="font-weight-bold "><i class="fas fa-edit"></i>&emsp;Edit</div>
+                            <form action="edit.jsp">
+                                <input type="hidden" name="id" value="${row.blog_id}" />
+                                <button type="submit" class="font-weight-bold "><i class="fas fa-edit"></i>&emsp;Edit</button>
+                            </form>
                             <c:if test= "${row.visibility == 1}">
                                 <form action="../updateVis" method="POST">
                                     <input type="hidden" name="id" value="${row.blog_id}" />

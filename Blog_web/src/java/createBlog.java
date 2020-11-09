@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.*;
@@ -18,7 +19,7 @@ import java.util.UUID;
  */
 @WebServlet(urlPatterns = {"/createBlog"})
 
-@MultipartConfig
+@MultipartConfig(maxFileSize = 16177215)
 public class createBlog extends HttpServlet {
 
     @Override
@@ -29,12 +30,8 @@ public class createBlog extends HttpServlet {
         String content = request.getParameter("content");
         String topic = request.getParameter("topic");
         Part part = request.getPart("file");
-        String blogid = UUID.randomUUID().toString(); 
-        
-        String fileName = part.getSubmittedFileName();
-        part.write("/blog_thumbs" + File.separator + "testt.png");
-        
-        out.print(blogid+" "+title+" "+content+" "+topic+ " Uploaded at "+ "/blog_thumbs" + File.separator + "testt.png");
+        InputStream inputStream = part.getInputStream();
+        String blogid = UUID.randomUUID().toString();
         
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -43,7 +40,7 @@ public class createBlog extends HttpServlet {
             PreparedStatement ps = con.prepareStatement("INSERT INTO blog(blog_id, created_by, thumbnail, content, title, topic) values(?, ?, ?, ?, ?, ?)");
             ps.setString(1, blogid);
             ps.setString(2, "johndoe");
-            ps.setString(3, "testt.png");
+            ps.setBlob(3, inputStream);
             ps.setString(4, content);
             ps.setString(5, title);
             ps.setString(6, topic);

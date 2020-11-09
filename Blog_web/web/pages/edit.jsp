@@ -10,12 +10,14 @@
 <%@page import="javax.servlet.http.*, javax.servlet.*" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<%@page import = "java.sql.*" %>
+<%@ page import="java.io.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create | Blog</title>
+    <title>Edit | Blog</title>
 
     <!-- BootStrap CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
@@ -32,8 +34,15 @@
 
 
     <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/Blog" user="root" password="" />
+    <sql:query dataSource="${snapshot}" var="topics">
+        SELECT * FROM topic
+    </sql:query>
     <sql:query dataSource="${snapshot}" var="results">
         SELECT * FROM topic
+    </sql:query>
+    <% String id = request.getParameter("id"); %>
+    <sql:query dataSource="${snapshot}" var="blog">
+        SELECT * FROM blog WHERE blog.blog_id = '<%= id %>'
     </sql:query>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom-gradient shadow-sm">
@@ -47,7 +56,7 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item font-weight-bold">
-                        <a class="nav-link" aria-current="page" href="./home.jsp">Home</a>
+                        <a class="nav-link" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item font-weight-bold ml-lg-4">
                         <a class="nav-link active" aria-current="page" href="./manage.jsp">Manage</a>
@@ -62,34 +71,38 @@
         </div>
     </nav>
     <div class="container py-5">
-        <form method="POST" id="createForm" enctype="multipart/form-data" action="../createBlog" class="w-100 text-left">
-            <div class="mb-4">
-                <h5><label for="Title" class="form-label font-weight-bold text-dark">Title</label></h5>
-                <input value="" name="title" type="text" class="form-control" id="title" placeholder="Enter blog title here">
-            </div>
-            <div class="mb-4">
-                <h5><label for="content" class="form-label font-weight-bold text-dark">Content</label></h5>
-                <textarea name="content" type="text" class="form-control" rows="10" id="content" placeholder="Enter blog content here"></textarea>
-            </div>
-            <div class="form-file">
-                <input type="file" name="file" class="form-file-input" id="customFile">
-                <label class="form-file-label" for="customFile">
-                    <span class="form-file-text">Choose file...</span>
-                    <span class="form-file-button">Browse</span>
-                </label>
-            </div>
-            <div class="mb-4">
-                <select name="topic" id="">
-                    <option selected disabled style="display: none;">Select Topic</option>
-                    <c:forEach var="row" items="${results.rows}" varStatus="loop">
-                        <option value="${row.name}">${row.name}</option>
-                    </c:forEach>
-                </select>
-            </div>
-            <div class="mt-3">
-                <button type="submit" form="createForm" class="btn bg-custom-gradient">Upload</button>
-            </div>
-        </form>
+        <c:forEach var="bl" items="${blog.rows}" varStatus="loop">
+            <form method="POST" id="createForm" enctype="multipart/form-data" action="../editBlog" class="w-100 text-left">
+                <div class="mb-4">
+                    <h5><label for="Title" class="form-label font-weight-bold text-dark">Title</label></h5>
+                    <input value="${bl.title}" name="title" type="text" class="form-control" id="title" placeholder="Enter blog title here">
+                </div>
+                <div class="mb-4">
+                    <h5><label for="content" class="form-label font-weight-bold text-dark">Content</label></h5>
+                    <textarea name="content" type="text" class="form-control" rows="10" id="content" placeholder="Enter blog content here">${bl.content}</textarea>
+                </div>
+                <div class="form-file">
+                    <input type="file" name="nfile" class="form-file-input" id="customFile">
+                    <label class="form-file-label" for="customFile">
+                        <span class="form-file-text">Choose file...</span>
+                        <span class="form-file-button">Browse</span>
+                    </label>
+                </div>
+                <img src="./displayImg.jsp?id=${bl.blog_id}" />
+                <div class="mb-4">
+                    <select name="topic" id="">
+                        <option selected disabled style="display: none;">Select Topic</option>
+                        <c:forEach var="row" items="${results.rows}" varStatus="loop">
+                            <option value="${row.name}">${row.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <input type="hidden" value="<%= id%>" name="id" />
+                <div class="mt-3">
+                    <button type="submit" form="createForm" class="btn bg-custom-gradient">Save</button>
+                </div>
+            </form>
+        </c:forEach>
     </div>
     <footer class="bg-custom-gradient">
         <div class="container py-3">
