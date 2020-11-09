@@ -53,6 +53,9 @@
     <sql:query dataSource="${snapshot}" var="topics">
         SELECT * FROM topic
     </sql:query>
+    <sql:query dataSource="${snapshot}" var="blogs">
+        SELECT * FROM blog
+    </sql:query>
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom-gradient shadow-sm">
         <div class="container container-fluid">
             <a class="navbar-brand img-container logo py-0" href="#">
@@ -64,10 +67,10 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item font-weight-bold">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="./home.jsp">Home</a>
                     </li>
                     <li class="nav-item font-weight-bold ml-lg-4">
-                        <a class="nav-link" aria-current="page" href="#">Manage</a>
+                        <a class="nav-link" aria-current="page" href="./manage.jsp">Manage</a>
                     </li>
                     <li class="nav-item font-weight-bold ml-lg-4">
                         <div class="btn btn-primary px-0 px-lg-2">
@@ -83,90 +86,22 @@
             Trending Topics
         </h3>
         <div id="owl-example" class="owl-carousel">
-            <div class="card shadow-custom-lg border-0 px-0 mb-5">
-                <img src="./assets/card-img-placeholder-top.svg" alt="" class="card-img-top">
-                <div class="card-body">
-                    <small class="text-muted font-weight-bold">
-                        Category
-                    </small>
-                    <h4 class="font-weight-bold my-2">
-                        Blog Title
-                    </h4>
-                    <p class="text-justify">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto hic voluptatibus fugiat deserunt quisquam beatae a voluptate veniam similique obcaecati.
-                    </p>
+            <c:forEach var="blog" items="${blogs.rows}" varStatus="loop">
+                <div class="card shadow-custom-lg border-0 px-0 mb-5">
+                    <img src="./displayImg.jsp?id=${blog.blog_id}" alt="" class="card-img-top">
+                    <div class="card-body">
+                        <small class="text-muted font-weight-bold">
+                            ${blog.topic}
+                        </small>
+                        <h4 class="font-weight-bold my-2">
+                            ${blog.title}
+                        </h4>
+                            <small class="font-weight-bold">- <i>${blog.created_by}</i> </small>
+                            
+                            <span class="mr-0">${blog.created_at}</span>
+                    </div>
                 </div>
-            </div>
-            <div class="card shadow-custom-lg border-0 px-0 mb-5">
-                <img src="./assets/card-img-placeholder-top.svg" alt="" class="card-img-top">
-                <div class="card-body">
-                    <small class="text-muted font-weight-bold">
-                        Category
-                    </small>
-                    <h4 class="font-weight-bold my-2">
-                        Blog Title
-                    </h4>
-                    <p class="text-justify">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto hic voluptatibus fugiat deserunt quisquam beatae a voluptate veniam similique obcaecati.
-                    </p>
-                </div>
-            </div>
-            <div class="card shadow-custom-lg border-0 px-0 mb-5">
-                <img src="./assets/card-img-placeholder-top.svg" alt="" class="card-img-top">
-                <div class="card-body">
-                    <small class="text-muted font-weight-bold">
-                        Category
-                    </small>
-                    <h4 class="font-weight-bold my-2">
-                        Blog Title
-                    </h4>
-                    <p class="text-justify">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto hic voluptatibus fugiat deserunt quisquam beatae a voluptate veniam similique obcaecati.
-                    </p>
-                </div>
-            </div>
-            <div class="card shadow-custom-lg border-0 px-0 mb-5">
-                <img src="./assets/card-img-placeholder-top.svg" alt="" class="card-img-top">
-                <div class="card-body">
-                    <small class="text-muted font-weight-bold">
-                        Category
-                    </small>
-                    <h4 class="font-weight-bold my-2">
-                        Blog Title
-                    </h4>
-                    <p class="text-justify">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto hic voluptatibus fugiat deserunt quisquam beatae a voluptate veniam similique obcaecati.
-                    </p>
-                </div>
-            </div>
-            <div class="card shadow-custom-lg border-0 px-0 mb-5">
-                <img src="./assets/card-img-placeholder-top.svg" alt="" class="card-img-top">
-                <div class="card-body">
-                    <small class="text-muted font-weight-bold">
-                        Category
-                    </small>
-                    <h4 class="font-weight-bold my-2">
-                        Blog Title
-                    </h4>
-                    <p class="text-justify">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto hic voluptatibus fugiat deserunt quisquam beatae a voluptate veniam similique obcaecati.
-                    </p>
-                </div>
-            </div>
-            <div class="card shadow-custom-lg border-0 px-0 mb-5">
-                <img src="./assets/card-img-placeholder-top.svg" alt="" class="card-img-top">
-                <div class="card-body">
-                    <small class="text-muted font-weight-bold">
-                        Category
-                    </small>
-                    <h4 class="font-weight-bold my-2">
-                        Blog Title
-                    </h4>
-                    <p class="text-justify">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto hic voluptatibus fugiat deserunt quisquam beatae a voluptate veniam similique obcaecati.
-                    </p>
-                </div>
-            </div>
+            </c:forEach>
         </div>
         <h3 class="font-weight-bold mb-5">
             Recent Blog Posts

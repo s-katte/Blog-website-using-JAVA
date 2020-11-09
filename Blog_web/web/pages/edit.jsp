@@ -56,7 +56,7 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item font-weight-bold">
-                        <a class="nav-link" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" aria-current="page" href="./home.jsp">Home</a>
                     </li>
                     <li class="nav-item font-weight-bold ml-lg-4">
                         <a class="nav-link active" aria-current="page" href="./manage.jsp">Manage</a>
