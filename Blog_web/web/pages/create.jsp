@@ -58,9 +58,9 @@
                         <a class="nav-link active" aria-current="page" href="./manage.jsp">Manage</a>
                     </li>
                     <li class="nav-item font-weight-bold ml-lg-4">
-                        <div class="btn btn-primary px-0 px-lg-2">
+                        <a href="../logoutUser" class="btn btn-primary px-0 px-lg-2">
                             Logout
-                        </div>
+                        </a>
                     </li>
                 </ul>
             </div>

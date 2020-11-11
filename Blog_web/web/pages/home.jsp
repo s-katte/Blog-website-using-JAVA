@@ -54,7 +54,7 @@
         SELECT * FROM topic
     </sql:query>
     <sql:query dataSource="${snapshot}" var="blogs">
-        SELECT * FROM blog ORDER BY created_at DESC;
+        SELECT * FROM blog WHERE visibility = 1 ORDER BY created_at DESC;
     </sql:query>
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom-gradient shadow-sm">
         <div class="container container-fluid">
@@ -73,9 +73,9 @@
                         <a class="nav-link" aria-current="page" href="./manage.jsp">Manage</a>
                     </li>
                     <li class="nav-item font-weight-bold ml-lg-4">
-                        <div class="btn btn-primary px-0 px-lg-2">
+                        <a href="../logoutUser" class="btn btn-primary px-0 px-lg-2">
                             Logout
-                        </div>
+                        </a>
                     </li>
                 </ul>
             </div>
