@@ -34,7 +34,7 @@
             <h6>
                 - OR -
             </h6>
-            <a href="#" class="btn btn-custom btn-hover btn-lg btn-custom-rounded font-weight-bold text-white">
+            <a href="./login.jsp" class="btn btn-custom btn-hover btn-lg btn-custom-rounded font-weight-bold text-white">
                 Log In
             </a>
         </div>

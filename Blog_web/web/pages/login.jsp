@@ -16,9 +16,16 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="./css/main.css">
-        <title>Blog|Login</title>
+        <title>Blog | Login</title>
     </head>
     <body>
+        <%
+            String name = (String)session.getAttribute("user_name");
+            if(name != null) {
+                response.sendRedirect("./home.jsp");
+            }
+            out.println(name);
+        %>
         <div class="row h-100 mx-0">
         <div class="col d-flex flex-column justify-content-around align-items-center text-custom text-center">
             <h1 class="font-weight-bold">
@@ -59,7 +66,7 @@
             <h6>
                 - OR -
             </h6>
-            <a href="#" class="btn btn-custom btn-hover btn-lg btn-custom-rounded font-weight-bold text-white">
+            <a href="./register.jsp" class="btn btn-custom btn-hover btn-lg btn-custom-rounded font-weight-bold text-white">
                 Sign Up
             </a>
         </div>
