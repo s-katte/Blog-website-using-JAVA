@@ -32,6 +32,7 @@ public class createBlog extends HttpServlet {
         Part part = request.getPart("file");
         InputStream inputStream = part.getInputStream();
         String blogid = UUID.randomUUID().toString();
+        HttpSession session = request.getSession(true);
         
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -39,7 +40,8 @@ public class createBlog extends HttpServlet {
             "root", "");
             PreparedStatement ps = con.prepareStatement("INSERT INTO blog(blog_id, created_by, thumbnail, content, title, topic) values(?, ?, ?, ?, ?, ?)");
             ps.setString(1, blogid);
-            ps.setString(2, "johndoe");
+            String name = (String) session.getAttribute("user_name");
+            ps.setString(2, name);
             ps.setBlob(3, inputStream);
             ps.setString(4, content);
             ps.setString(5, title);

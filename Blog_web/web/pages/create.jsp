@@ -29,7 +29,12 @@
 
 </head>
 <body>
-
+    <%
+            String name = (String)session.getAttribute("user_name");
+            if(name == null) {
+                response.sendRedirect("./login.jsp");
+            }
+    %>
 
     <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/Blog" user="root" password="" />
     <sql:query dataSource="${snapshot}" var="results">
