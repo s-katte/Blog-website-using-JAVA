@@ -43,9 +43,15 @@
     </script>
 </head>
 <body>
+    <%
+            String name = (String)session.getAttribute("user_name");
+            if(name == null) {
+                response.sendRedirect("./login.jsp");
+            }
+    %>
     <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/Blog" user="root" password="" />
     <sql:query dataSource="${snapshot}" var="results">
-        SELECT * FROM blog
+        SELECT * FROM blog WHERE created_by = '<%= name %>'
     </sql:query>
         
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom-gradient shadow-sm">
@@ -65,9 +71,9 @@
                         <a class="nav-link active" aria-current="page" href="manage.jsp">Manage</a>
                     </li>
                     <li class="nav-item font-weight-bold ml-lg-4">
-                        <div class="btn btn-primary px-0 px-lg-2">
+                        <a href="../logoutUser" class="btn btn-primary px-0 px-lg-2">
                             Logout
-                        </div>
+                        </a>
                     </li>
                 </ul>
             </div>

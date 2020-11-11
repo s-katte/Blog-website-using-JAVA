@@ -24,7 +24,6 @@
             if(name != null) {
                 response.sendRedirect("./home.jsp");
             }
-            out.println(name);
         %>
         <div class="row h-100 mx-0">
         <div class="col d-flex flex-column justify-content-around align-items-center text-custom text-center">
