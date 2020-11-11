@@ -54,7 +54,7 @@
         SELECT * FROM topic
     </sql:query>
     <sql:query dataSource="${snapshot}" var="blogs">
-        SELECT * FROM blog
+        SELECT * FROM blog ORDER BY created_at DESC;
     </sql:query>
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom-gradient shadow-sm">
         <div class="container container-fluid">
@@ -85,10 +85,13 @@
         <h3 class="font-weight-bold mb-5">
             Trending Topics
         </h3>
+        
         <div id="owl-example" class="owl-carousel">
             <c:forEach var="blog" items="${blogs.rows}" varStatus="loop">
                 <div class="card shadow-custom-lg border-0 px-0 mb-5">
-                    <img src="./displayImg.jsp?id=${blog.blog_id}" alt="" class="card-img-top">
+                    <a href="./blog.jsp?id=${blog.blog_id}">
+                        <img src="./displayImg.jsp?id=${blog.blog_id}" alt="" class="card-img-top">
+                    </a>
                     <div class="card-body">
                         <small class="text-muted font-weight-bold">
                             ${blog.topic}
@@ -103,80 +106,43 @@
                 </div>
             </c:forEach>
         </div>
+        <% if(request.getParameter("search_qry") != "" && request.getParameter("search_qry") != null){ %>
+            <sql:query dataSource="${snapshot}" var="blogs">
+                SELECT * FROM blog WHERE topic like '%<%= request.getParameter("search_qry") %>%' or title like '%<%= request.getParameter("search_qry") %>%' or content like '%<%= request.getParameter("search_qry") %>%' ORDER BY created_at DESC;
+            </sql:query>
+        <% } %>
         <h3 class="font-weight-bold mb-5">
             Recent Blog Posts
         </h3>
+        
         <div class="row">
             <div class="col-md-8">
-                <div class="card border-0 shadow-custom-lg">
-                    <div class="row">
-                        <div class="col-md-4 img-container">
-                            <img src="./assets/card-img-placeholder-top.svg" alt="">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <small class="text-muted font-weight-bold">
-                                    Category
-                                </small>
-                                <h4 class="font-weight-bold my-2">
-                                    Blog Title
-                                </h4>
-                                <p class="text-justify">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto hic voluptatibus fugiat deserunt quisquam beatae a voluptate veniam similique obcaecati.
-                                </p>
-                                <div class="text-right">
-                                    <div class="btn bg-custom-gradient">Read More</div>
+                <c:forEach var="blog" items="${blogs.rows}" varStatus="loop">
+                    <div class="card border-0 shadow-custom-lg mt-3">
+                        <div class="row">
+                            <div class="col-md-4 img-container">
+                                <img src="./displayImg.jsp?id=${blog.blog_id}" alt="">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <small class="text-muted font-weight-bold">
+                                        ${blog.topic}
+                                    </small>
+                                    <h4 class="font-weight-bold my-2">
+                                        ${blog.title}
+                                    </h4>
+                                    <p class="text-justify" style="width: 50ch; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                        ${blog.content}
+                                    </p>
+                                    <div class="text-right">
+                                        <a href="./blog.jsp?id=${blog.blog_id}" class="btn bg-custom-gradient">Read More</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card border-0 shadow-custom-lg mt-3">
-                    <div class="row">
-                        <div class="col-md-4 img-container">
-                            <img src="./assets/card-img-placeholder-top.svg" alt="">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <small class="text-muted font-weight-bold">
-                                    Category
-                                </small>
-                                <h4 class="font-weight-bold my-2">
-                                    Blog Title
-                                </h4>
-                                <p class="text-justify">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto hic voluptatibus fugiat deserunt quisquam beatae a voluptate veniam similique obcaecati.
-                                </p>
-                                <div class="text-right">
-                                    <div class="btn bg-custom-gradient">Read More</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card border-0 shadow-custom-lg mt-3">
-                    <div class="row">
-                        <div class="col-md-4 img-container">
-                            <img src="./assets/card-img-placeholder-top.svg" alt="">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <small class="text-muted font-weight-bold">
-                                    Category
-                                </small>
-                                <h4 class="font-weight-bold my-2">
-                                    Blog Title
-                                </h4>
-                                <p class="text-justify">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto hic voluptatibus fugiat deserunt quisquam beatae a voluptate veniam similique obcaecati.
-                                </p>
-                                <div class="text-right">
-                                    <div class="btn bg-custom-gradient">Read More</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>
+                
             </div>
             <div class="col-md-4">
                 <form id="searchForm" action="" class="text-left bg-custom-light p-3 rounded">
@@ -184,7 +150,12 @@
                         Search
                     </h3>
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Find your interests">
+                        <input type="text" class="form-control" name="search_qry" placeholder="Find your interests">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                              search
+                            </button>
+                        </div>
                     </div>
                 </form>
                 <div class="bg-custom-light p-3 mt-3 rounded topic-container">
