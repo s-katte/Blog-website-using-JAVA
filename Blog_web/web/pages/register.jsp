@@ -19,6 +19,13 @@
         <title>Blog | Register</title>
     </head>
     <body>
+        <%
+            String name = (String)session.getAttribute("user_name");
+            if(name != null) {
+                response.sendRedirect("./home.jsp");
+            }
+            out.println(name);
+        %>
         <div class="row h-100 mx-0">
         <div class="col-md-4 py-5 py-md-0 bg-custom-gradient d-flex flex-column justify-content-around align-items-center text-white text-center">
             <div class="logo img-container w-50">
