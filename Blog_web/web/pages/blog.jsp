@@ -5,6 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@page import="java.io.*, java.util.*, java.sql.*" %>
+<%@page import="javax.servlet.http.*, javax.servlet.*" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,6 +24,10 @@
 
 </head>
 <body>
+    <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/Blog" user="root" password="" />
+    <sql:query dataSource="${snapshot}" var="blogs">
+        SELECT * FROM blog WHERE blog_id = '<%=request.getParameter("id")%>';
+    </sql:query>
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom-gradient shadow-sm">
         <div class="container container-fluid">
             <a class="navbar-brand img-container logo py-0" href="#">
@@ -30,10 +39,10 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item font-weight-bold">
-                        <a class="nav-link" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" aria-current="page" href="./home.jsp">Home</a>
                     </li>
                     <li class="nav-item font-weight-bold ml-lg-4">
-                        <a class="nav-link" aria-current="page" href="#">Manage</a>
+                        <a class="nav-link" aria-current="page" href="./manage.jsp">Manage</a>
                     </li>
                     <li class="nav-item font-weight-bold ml-lg-4">
                         <div class="btn btn-primary px-0 px-lg-2">
@@ -44,30 +53,23 @@
             </div>
         </div>
     </nav>
+    <c:forEach var="blog" items="${blogs.rows}" varStatus="loop">
     <div class="container">
         <div class="img-container text-center">
-            <img src="./assets/card-img-placeholder-top.svg" alt="" style="width: 40rem">
+            <img src="./displayImg.jsp?id=${blog.blog_id}" alt="" style="width: 40rem">
         </div>
         <h1 class="font-weight-bold my-5 text-center">
-            Blog Title
+            ${blog.title}
         </h1>
         <div class="d-flex justify-content-between">
             <h5 class="text-muted font-weight-bold">
-                24th Oct, 2020
+                ${blog.created_at}
             </h5>
             <h5 class="text-muted font-weight-bold">
-                - John Doe
-            </h5>
+                - ${blog.created_by}
         </div>
         <div class="text-justify">
-            &emsp;&emsp;&emsp;
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum dicta delectus sint quae omnis, sed maxime. In, perferendis! Perferendis perspiciatis mollitia, dicta odit qui odio delectus alias? Ea reprehenderit necessitatibus, ab reiciendis voluptates iure delectus sapiente ullam pariatur explicabo dolorem cupiditate assumenda repellat officia laborum incidunt soluta, est veritatis debitis eum, quam consequuntur iste quidem totam? Modi repellendus, consequuntur debitis reiciendis quasi possimus? Maiores, doloremque sequi dolor magni vero, odit dolore fugit tenetur sint et quod distinctio quos? Aperiam ut, distinctio eum porro optio quod voluptate, fugiat sit nemo quis soluta fuga laborum reprehenderit molestias quam, asperiores debitis provident doloremque quia! Odio culpa saepe officia illo molestias ad blanditiis repellendus magni incidunt asperiores. Omnis, debitis autem ipsa sed et exercitationem, nostrum nobis doloribus impedit blanditiis nihil vitae? Unde excepturi quos delectus quas ipsam quam obcaecati itaque maxime corporis? Nesciunt, deleniti maxime! Suscipit provident non rem officia nobis tenetur accusantium excepturi illum possimus cumque nam culpa illo et atque cupiditate labore perferendis veniam expedita sint itaque quis assumenda, distinctio recusandae! Cumque qui quisquam dolore dicta quod autem nihil excepturi harum, odio voluptatibus unde ducimus officiis. Perspiciatis architecto eos esse amet soluta fugit nobis ex. Ducimus nulla odio aperiam praesentium, eum necessitatibus.
-            <br><br>
-            &emsp;&emsp;&emsp;
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum dicta delectus sint quae omnis, sed maxime. In, perferendis! Perferendis perspiciatis mollitia, dicta odit qui odio delectus alias? Ea reprehenderit necessitatibus, ab reiciendis voluptates iure delectus sapiente ullam pariatur explicabo dolorem cupiditate assumenda repellat officia laborum incidunt soluta, est veritatis debitis eum, quam consequuntur iste quidem totam? Modi repellendus, consequuntur debitis reiciendis quasi possimus? Maiores, doloremque sequi dolor magni vero, odit dolore fugit tenetur sint et quod distinctio quos? Aperiam ut, distinctio eum porro optio quod voluptate, fugiat sit nemo quis soluta fuga laborum reprehenderit molestias quam, asperiores debitis provident doloremque quia! Odio culpa saepe officia illo molestias ad blanditiis repellendus magni incidunt asperiores. Omnis, debitis autem ipsa sed et exercitationem, nostrum nobis doloribus impedit blanditiis nihil vitae? Unde excepturi quos delectus quas ipsam quam obcaecati itaque maxime corporis? Nesciunt, deleniti maxime! Suscipit provident non rem officia nobis tenetur accusantium excepturi illum possimus cumque nam culpa illo et atque cupiditate labore perferendis veniam expedita sint itaque quis assumenda, distinctio recusandae! Cumque qui quisquam dolore dicta quod autem nihil excepturi harum, odio voluptatibus unde ducimus officiis. Perspiciatis architecto eos esse amet soluta fugit nobis ex. Ducimus nulla odio aperiam praesentium, eum necessitatibus.
-            <br><br>
-            &emsp;&emsp;&emsp;
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum dicta delectus sint quae omnis, sed maxime. In, perferendis! Perferendis perspiciatis mollitia, dicta odit qui odio delectus alias? Ea reprehenderit necessitatibus, ab reiciendis voluptates iure delectus sapiente ullam pariatur explicabo dolorem cupiditate assumenda repellat officia laborum incidunt soluta, est veritatis debitis eum, quam consequuntur iste quidem totam? Modi repellendus, consequuntur debitis reiciendis quasi possimus? Maiores, doloremque sequi dolor magni vero, odit dolore fugit tenetur sint et quod distinctio quos? Aperiam ut, distinctio eum porro optio quod voluptate, fugiat sit nemo quis soluta fuga laborum reprehenderit molestias quam, asperiores debitis provident doloremque quia! Odio culpa saepe officia illo molestias ad blanditiis repellendus magni incidunt asperiores. Omnis, debitis autem ipsa sed et exercitationem, nostrum nobis doloribus impedit blanditiis nihil vitae? Unde excepturi quos delectus quas ipsam quam obcaecati itaque maxime corporis? Nesciunt, deleniti maxime! Suscipit provident non rem officia nobis tenetur accusantium excepturi illum possimus cumque nam culpa illo et atque cupiditate labore perferendis veniam expedita sint itaque quis assumenda, distinctio recusandae! Cumque qui quisquam dolore dicta quod autem nihil excepturi harum, odio voluptatibus unde ducimus officiis. Perspiciatis architecto eos esse amet soluta fugit nobis ex. Ducimus nulla odio aperiam praesentium, eum necessitatibus.
+            ${blog.content}
         </div>
         <h2 class="font-weight-bold text-left my-5">
             Comments
@@ -136,6 +138,7 @@
             </div>
         </div>
     </div>
+    </c:forEach>
     <footer class="bg-custom-gradient">
         <div class="container py-3">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
