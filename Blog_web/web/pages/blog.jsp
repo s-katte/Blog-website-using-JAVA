@@ -28,6 +28,9 @@
     <sql:query dataSource="${snapshot}" var="blogs">
         SELECT * FROM blog WHERE blog_id = '<%=request.getParameter("id")%>';
     </sql:query>
+    <sql:query dataSource="${snapshot}" var="comments">
+        SELECT * FROM comments WHERE comment_on = '<%=request.getParameter("id")%>' ORDER BY comment_at;
+    </sql:query>
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom-gradient shadow-sm">
         <div class="container container-fluid">
             <a class="navbar-brand img-container logo py-0" href="#">
@@ -44,11 +47,27 @@
                     <li class="nav-item font-weight-bold ml-lg-4">
                         <a class="nav-link" aria-current="page" href="./manage.jsp">Manage</a>
                     </li>
+                    <%
+                        String name = (String)session.getAttribute("user_name");
+                        if(name == null) {
+                    %>
                     <li class="nav-item font-weight-bold ml-lg-4">
-                        <div class="btn btn-primary px-0 px-lg-2">
-                            Logout
-                        </div>
+                        <a href="./login.jsp" class="btn btn-primary px-0 px-lg-2">
+                            Login
+                        </a>
                     </li>
+                    <li class="nav-item font-weight-bold ml-lg-4">
+                        <a href="./register.jsp" class="btn btn-primary px-0 px-lg-2">
+                            Signup
+                        </a>
+                    </li>
+                    <% } else { %>
+                    <li class="nav-item font-weight-bold ml-lg-4">
+                        <a href="../logoutUser" class="btn btn-primary px-0 px-lg-2">
+                            Logout
+                        </a>
+                    </li>
+                    <% } %>
                 </ul>
             </div>
         </div>
@@ -74,19 +93,26 @@
         <h2 class="font-weight-bold text-left my-5">
             Comments
         </h2>
+        <%
+            name = (String)session.getAttribute("user_name");
+            if(name != null) {
+        %>
         <div class="card shadow-custom-lg mb-3">
             <div class="card-body">
-                <form id="commentForm" action="" class="text-left bg-light p-3 rounded">
+                <form id="commentForm" action="../addComment" class="text-left bg-light p-3 rounded">
                     <div class="input-group">
-                        <textarea type="text" class="form-control" placeholder="Add your comments"></textarea>
+                        <textarea  name="comment" type="text" class="form-control" placeholder="Add your comments"></textarea>
                     </div>
+                    <input type="hidden" name="user" value="<%=name%>">
+                    <input type="hidden" name="blog_id" value="<%=request.getParameter("id")%>">
                     <div class="text-right mt-3">
-                        <div class="btn bg-custom-gradient">Add comment</div>
+                        <input class="btn bg-custom-gradient" type="submit" value="Add comment">
                     </div>
                 </form>
             </div>
         </div>
-        <div class="card shadow-custom-lg mb-3">
+        <% } %>
+<!--        <div class="card shadow-custom-lg mb-3">
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between">
                     <h4 class="font-weight-bold">John Doe</h4>
@@ -114,29 +140,20 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="card shadow-custom-lg mb-3">
-            <div class="card-body p-4">
-                <div class="d-flex justify-content-between">
-                    <h4 class="font-weight-bold">John Doe</h4>
-                    <div class="text-muted">22nd Oct, 2020</div>
-                </div>
-                <div class="text-justify">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam iste excepturi quisquam quo autem quis, iure perferendis tenetur ut voluptatem tempore non laudantium hic aliquid obcaecati consectetur sequi. Dolorem corporis, ducimus odit non perspiciatis ipsa molestiae delectus assumenda nihil nisi excepturi repellat, deserunt ut fuga voluptatibus. Illum facilis cum saepe, iusto voluptatem ducimus, quaerat pariatur non, suscipit quas vero libero voluptas consectetur nihil hic magni eos tempore vel impedit eveniet ad deleniti. Et repellat excepturi vel harum, nostrum placeat hic mollitia praesentium laudantium nemo nobis quisquam sapiente obcaecati, repudiandae, ipsam ullam! Quae cum pariatur assumenda soluta tempore reiciendis sapiente quia.
-                </div>
-            </div>
-        </div>
-        <div class="card shadow-custom-lg mb-3">
-            <div class="card-body p-4">
-                <div class="d-flex justify-content-between">
-                    <h4 class="font-weight-bold">John Doe</h4>
-                    <div class="text-muted">22nd Oct, 2020</div>
-                </div>
-                <div class="text-justify">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam iste excepturi quisquam quo autem quis, iure perferendis tenetur ut voluptatem tempore non laudantium hic aliquid obcaecati consectetur sequi. Dolorem corporis, ducimus odit non perspiciatis ipsa molestiae delectus assumenda nihil nisi excepturi repellat, deserunt ut fuga voluptatibus. Illum facilis cum saepe, iusto voluptatem ducimus, quaerat pariatur non, suscipit quas vero libero voluptas consectetur nihil hic magni eos tempore vel impedit eveniet ad deleniti. Et repellat excepturi vel harum, nostrum placeat hic mollitia praesentium laudantium nemo nobis quisquam sapiente obcaecati, repudiandae, ipsam ullam! Quae cum pariatur assumenda soluta tempore reiciendis sapiente quia.
+        </div>-->
+        <c:forEach var="comment" items="${comments.rows}" varStatus="loop">
+            <div class="card shadow-custom-lg mb-3">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="font-weight-bold">${comment.comment_by}</h4>
+                        <div class="text-muted">${comment.comment_at}</div>
+                    </div>
+                    <div class="text-justify">
+                        ${comment.comment}
+                    </div>
                 </div>
             </div>
-        </div>
+        </c:forEach>
     </div>
     </c:forEach>
     <footer class="bg-custom-gradient">

@@ -72,11 +72,28 @@
                     <li class="nav-item font-weight-bold ml-lg-4">
                         <a class="nav-link" aria-current="page" href="./manage.jsp">Manage</a>
                     </li>
+                    <%
+                        String name = (String)session.getAttribute("user_name");
+                        if(name == null) {
+                    %>
+                    <li class="nav-item font-weight-bold ml-lg-4">
+                        <a href="./login.jsp" class="btn btn-primary px-0 px-lg-2">
+                            Login
+                        </a>
+                    </li>
+                    <li class="nav-item font-weight-bold ml-lg-4">
+                        <a href="./register.jsp" class="btn btn-primary px-0 px-lg-2">
+                            Signup
+                        </a>
+                    </li>
+                    <% } else { %>
                     <li class="nav-item font-weight-bold ml-lg-4">
                         <a href="../logoutUser" class="btn btn-primary px-0 px-lg-2">
                             Logout
                         </a>
                     </li>
+                    <% } %>
+                    
                 </ul>
             </div>
         </div>

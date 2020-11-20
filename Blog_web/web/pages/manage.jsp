@@ -103,25 +103,25 @@
                         <td class="d-flex flex-row justify-content-between manage-links">
                             <form action="edit.jsp">
                                 <input type="hidden" name="id" value="${row.blog_id}" />
-                                <button type="submit" class="font-weight-bold "><i class="fas fa-edit"></i>&emsp;Edit</button>
+                                <button type="submit" style="background: transparent" class="font-weight-bold border-0"><i class="fas fa-edit"></i>&emsp;Edit</button>
                             </form>
                             <c:if test= "${row.visibility == 1}">
                                 <form action="../updateVis" method="POST">
                                     <input type="hidden" name="id" value="${row.blog_id}" />
                                     <input type="hidden" name="vis" value="lock" />
-                                    <button type="submit" class="font-weight-bold text-primary border-0"><i class="fas fa-lock"></i>&emsp;Lock</button>
+                                    <button type="submit" style="background: transparent" class="font-weight-bold text-primary border-0"><i class="fas fa-lock"></i>&emsp;Lock</button>
                                 </form>
                             </c:if>
                             <c:if test= "${row.visibility == 0}">
                                 <form action="../updateVis" method="POST">
                                     <input type="hidden" name="id" value="${row.blog_id}" />
                                     <input type="hidden" name="vis" value="publish" />
-                                    <button type="submit" id="publish" class="font-weight-bold text-success border-0"><i class="fas fa-upload"></i>&emsp;Publish</button>
+                                    <button type="submit" style="background: transparent" id="publish" class="font-weight-bold text-success border-0"><i class="fas fa-upload"></i>&emsp;Publish</button>
                                 </form>
                             </c:if>
                             <form method="POST" action="../deleteBlog">
                                 <input type="hidden" value="${row.blog_id}" name="id" />
-                                <button class="font-weight-bold text-danger border-0"><i class="fas fa-trash-alt"></i>&emsp;Delete</button>
+                                <button style="background: transparent" class="font-weight-bold text-danger border-0"><i class="fas fa-trash-alt"></i>&emsp;Delete</button>
                             </form>
                         </td>
                     </tr>
